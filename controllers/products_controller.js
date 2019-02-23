@@ -1,6 +1,8 @@
 module.exports = {
     create: (req,res) => {
-        req.app.db.create_product()
+        let {name, description, price, image_url} = req.body;
+
+        req.app.db.create_product(name, description, price, image_url)
         .then((dbResponse) => {
            res.status(200).send('Created');
         }).catch(() => {
@@ -8,7 +10,9 @@ module.exports = {
         });
     },
     getOne: (req,res) => {
-        req.app.db.read_product()
+        let{id} = req.params;
+
+        req.app.db.read_product(id)
         .then((product) => {
             res.status(200).send(product);
         }).catch((error) =>{
@@ -26,7 +30,10 @@ module.exports = {
         });
     },
     update: (req,res) => {
-        req.app.db.update_product()
+        let{id} = req.params;
+        let{desc} = req.body;
+
+        req.app.db.update_product([desc. id])
         .then(() => {
             res.status(200).send('Udated');
         }).catch(() =>{
@@ -34,7 +41,9 @@ module.exports = {
         });
     },
     delete: (req,res) => {
-        req.app.db.delete_product()
+        let{id} = req.params;
+
+        req.app.db.delete_product(id)
         .then(() => {
             res.status(200).send('Deleted');
         }).catch(() =>{
